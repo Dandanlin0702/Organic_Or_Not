@@ -4,3 +4,5 @@ const mongoose = require("mongoose");
 const NotOrganicDOSchema = new mongoose.Schema({
   category_tags: String
 });
+
+module.exports = mongoose.model("NotOrganic", NotOrganicDOSchema);
