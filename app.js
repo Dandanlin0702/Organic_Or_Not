@@ -2,7 +2,7 @@ const express  = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),  //body-parser
     mongoose   = require("mongoose"),
-    NotOrganic    = require("./models/not_organic_do"),
+    NotOrganic = require("./models/not_organic_do"),
     seedDB     = require("./seeds");
 
 mongoose.connect("mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development");
