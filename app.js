@@ -1,13 +1,17 @@
 const express  = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),  //body-parser
-    mongoose   = require("mongoose");
-    //models = require('./models')
+    mongoose   = require("mongoose"),
+    NotOrganic    = require("./models/not_organic_do"),
+    seedDB     = require("./seeds");
+
+mongoose.connect("mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development");
+//mongoose.connect("mongodb://localhost/organic-or-not_development");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-mongoose.connect("mongodb://localhost/organic-or-not_development");
+seedDB();
 
 app.use(express.static('./public'));
 
