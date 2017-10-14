@@ -1,4 +1,4 @@
-const express    = require("express"),
+const express  = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),  //body-parser
     mongoose   = require("mongoose");
@@ -9,6 +9,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 mongoose.connect("mongodb://localhost/organic-or-not_development");
 
+app.use(express.static('./public'));
+
 const exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({layoutsDir: './views/layouts', defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -18,12 +20,10 @@ app.set('views', `${__dirname}/views/`);
 //const controllers = require('./controllers');
 //app.use(controllers);
 
-    // Load up all of the controllers
-    const controllers = require('./controllers');
-    app.use(controllers);
+// Load up all of the controllers
+const controllers = require('./controllers');
+app.use(controllers);
 
-
-
-    app.listen((process.env.PORT || 5000), function(){
-      console.log("The App Server Has Started!!!")
-    });
+app.listen((process.env.PORT || 5000), function(){
+   console.log("The App Server Has Started!!!")
+});
