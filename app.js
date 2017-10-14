@@ -1,9 +1,8 @@
-var express = require("express"),
-  app = express(),
-  bodyParser = require("body-parser"), //body-parser
-  mongoose = require("mongoose"),
-  //models = require('./models'),
-  seedDB = require("./seeds");
+var express    = require("express"),
+    app        = express(),
+    bodyParser = require("body-parser"),  //body-parser
+    mongoose   = require("mongoose");
+    //models = require('./models')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -19,6 +18,12 @@ app.set('views', `${__dirname}/views/`);
 //const controllers = require('./controllers');
 //app.use(controllers);
 
-app.listen((process.env.PORT || 5000), function() {
-  console.log("The App Server Has Started!!!")
-});
+    // Load up all of the controllers
+    const controllers = require('./controllers');
+    app.use(controllers);
+
+
+
+    app.listen((process.env.PORT || 5000), function(){
+      console.log("The App Server Has Started!!!")
+    });
