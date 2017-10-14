@@ -7,7 +7,8 @@ const express    = require("express"),
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-mongoose.connect("mongodb://localhost/organic-or-not_development");
+mongoose.connect("mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development");
+//mongoose.connect("mongodb://localhost/organic-or-not_development");
 
 const exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({layoutsDir: './views/layouts', defaultLayout: 'main'}));
