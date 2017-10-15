@@ -5,13 +5,15 @@ const express  = require("express"),
     NotOrganic    = require("./models/not_organic_do"),
     seedDB     = require("./seeds");
 
-mongoose.connect("mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development");
+// Get rid of deprecated promise warning
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development", {useMongoClient: true});
 //mongoose.connect("mongodb://localhost/organic-or-not_development");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-seedDB();
+//seedDB();
 
 app.use(express.static('./public'));
 
