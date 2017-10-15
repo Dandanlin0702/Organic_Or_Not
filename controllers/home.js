@@ -5,6 +5,13 @@ const express = require('express');
 const router = express.Router();
 
 
+router.get('/info', (req, res) => {
+  // res.json({
+  //   msg: "Successful GET to '/' route"
+  // });
+  res.render('info');
+});
+
 router.get('/', (req, res) => {
   // res.json({
   //   msg: "Successful GET to '/' route"
