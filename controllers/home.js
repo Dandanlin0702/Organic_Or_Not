@@ -5,6 +5,13 @@ const Locations = require("../models/locations.js");
 const router = express.Router();
 
 
+router.get('/info', (req, res) => {
+  // res.json({
+  //   msg: "Successful GET to '/' route"
+  // });
+  res.render('info');
+});
+
 router.get('/', (req, res) => {
   // res.json({
   //   msg: "Successful GET to '/' route"

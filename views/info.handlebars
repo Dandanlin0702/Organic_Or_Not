@@ -1,4 +1,153 @@
-<!-- About -->
+
+<div class="header-content" style="text-align: center; margin-top: 80px; margin-bottom: 50px;">
+  <div class="header-content-inner">
+    <h1 id="homeHeading">Welcome To Organic Or Not</h1>
+    <hr>
+    <p>Please follow following steps</p>
+  </div>
+</div>
+
+<section class="bg-primary" id="about">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto text-center">
+      <h2 class="section-heading text-white">HERE'S WHAT YOU NEED TO KNOW</h2>
+      <hr class="light">
+      <p class="text-faded">Organic Or Not is a non-profit ..</p>
+      <a class="btn btn-default btn-xl js-scroll-trigger" href="#services">Get Started!</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="services">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h2 class="section-heading">WHAT DO YOU WNAT TO DO</h2>
+      <hr class="primary">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-6 text-center">
+      <div class="service-box">
+        <i class="fa fa-4x fa-camera-retro text-primary sr-icons"></i>
+        <h3>Send Image</h3>
+        <p class="text-muted">You can send an image to us ....</p>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 text-center">
+      <div class="service-box">
+        <i class="fa fa-4x fa-hand-rock-o text-primary sr-icons"></i>
+        <h3>Action </h3>
+        <p class="text-muted">You have to make your websites with love these days!</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-6 text-center">
+      <div class="service-box">
+        <i class="fa fa-4x fa-camera-retro text-primary sr-icons"></i>
+        <h3>Send Image</h3>
+        <p class="text-muted">You can send an image to us ....</p>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 text-center">
+      <div class="service-box">
+        <i class="fa fa-4x fa-mobile text-primary sr-icons"></i>
+        <h3>Send Text</h3>
+        <p class="text-muted">You can use this theme as is, or you can make changes!</p>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 text-center">
+      <div class="service-box">
+        <i class="fa fa-4x fa-newspaper-o text-primary sr-icons"></i>
+        <h3>Get Resopnse</h3>
+        <p class="text-muted">We update dependencies to keep things fresh.</p>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 text-center">
+      <div class="service-box">
+        <i class="fa fa-4x fa-hand-rock-o text-primary sr-icons"></i>
+        <h3>Action </h3>
+        <p class="text-muted">You have to make your websites with love these days!</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 mx-auto text-center">
+      <h2 class="section-heading">Let's Get In Touch!</h2>
+      <hr class="primary">
+      <p>Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 ml-auto text-center">
+      <i class="fa fa-phone fa-3x sr-contact"></i>
+      <p>123-456-6789</p>
+    </div>
+    <div class="col-lg-4 mr-auto text-center">
+      <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+      <p>
+        <a href="mailto:your-email@your-domain.com">feedback@startbootstrap.com</a>
+      </p>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<!-- Footer -->
+<footer>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <span class="copyright">Copyright &copy; Organic Or Not 2017</span>
+    </div>
+    <div class="col-md-4">
+      <ul class="list-inline social-buttons">
+        <li class="list-inline-item">
+          <a href="#">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#">
+            <i class="fa fa-facebook"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#">
+            <i class="fa fa-linkedin"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <ul class="list-inline quicklinks">
+        <li class="list-inline-item">
+          <a href="#">Request Project</a>
+        </li>
+        <li class="list-inline-item">
+          <a href="#"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</footer>
+
+
+<!-- About
 <section id="about">
 <div class="container">
   <div class="row">
@@ -78,3 +227,66 @@
   </div>
 </div>
 </section>
+
+
+<div id="myDiv"></div>
+        <script>
+        /* JAVASCRIPT CODE GOES HERE */
+        Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_us_cities.csv', function(err, rows){
+      function unpack(rows, key) {
+          return rows.map(function(row) { return row[key]; });
+      }
+var cityName = unpack(rows, 'name'),
+    cityPop = unpack(rows, 'pop'),
+    cityLat = unpack(rows, 'lat'),
+    cityLon = unpack(rows, 'lon'),
+    color = [,"rgb(255,65,54)","rgb(133,20,75)","rgb(255,133,27)","lightgrey"],
+    citySize = [],
+    hoverText = [],
+    scale = 50000;
+
+for ( var i = 0 ; i < cityPop.length; i++) {
+  var currentSize = cityPop[i] / scale;
+  var currentText = cityName[i] + "<br>Population: " + cityPop[i];
+  citySize.push(currentSize);
+  hoverText.push(currentText);
+}
+
+  var data = [{
+   type: 'scattergeo',
+   locationmode: 'USA-states',
+   lat: cityLat,
+   lon: cityLon,
+   text: hoverText,
+   hoverinfo: 'text',
+   marker: {
+     size: citySize,
+     line: {
+       color: 'black',
+       width: 2
+     },
+
+   }
+}];
+
+var layout = {
+    title: '2014 US City Populations',
+    showlegend: false,
+    geo: {
+      scope: 'usa',
+      projection: {
+        type: 'albers usa'
+      },
+      showland: true,
+      landcolor: 'rgb(217, 217, 217)',
+      subunitwidth: 1,
+      countrywidth: 1,
+      subunitcolor: 'rgb(255,255,255)',
+      countrycolor: 'rgb(255,255,255)'
+    },
+};
+
+Plotly.plot(myDiv, data, layout, {showLink: false});
+  });
+        </script>
+ -->
