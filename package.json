@@ -23,6 +23,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
+    "mongodb": "^2.2.33",
     "mongoose": "^4.12.2",
     "nodemon": "^1.12.1",
     "twilio": "^3.8.1"
