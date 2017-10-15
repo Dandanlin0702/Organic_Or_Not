@@ -5,7 +5,7 @@ const DOLocationsSchema = new mongoose.Schema({
   name: String,
   address: String,
   borough: String,
-  zip: Number,
+  zip: [Number],
   open: String
 });
 
