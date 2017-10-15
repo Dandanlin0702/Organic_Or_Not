@@ -9,7 +9,9 @@
     seedDB     = require("./seeds"),
     MongoClient = require('mongodb').MongoClient,
     Organic = require("./models/organic_do.js"),
-    Locations = require("./models/locations.js");
+    Locations = require("./models/locations.js"),
+    Promise = require('promise'),
+    Bluebird = require('bluebird');
 
 // Get rid of deprecated promise warning
 mongoose.Promise = global.Promise;
@@ -21,6 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //seedDB();
+
 
 app.use(express.static('./public'));
 
@@ -47,21 +50,24 @@ app.set('views', `${__dirname}/views/`);
         const msgBody = req.body.Body;
         const numOfMedia = 1;
 
+        var message = "";
+
         if(numOfMedia == 0) {                                           //no images
             if(isNaN(msgBody)){                                         //check if it is a zipcode
                 res.send(`
                     <Response>
                         <Message>
-                            Hello ${msgFrom}. You have to send an image or zipcode. :D Try again!
+                            Hello! You have to send an image or zipcode. :D Try again!
                         </Message>
                     </Response>
                 `);
             } else {
-              var message = "Here are the scrap drop off locations near you! \n";
+                var message = "The closest scrap drop off location near you is \n\n";
               Locations.find({zip: msgBody}, (err, location) => {
                 if(err){
                   console.log(err);
                 } else {
+<<<<<<< HEAD
                   for(var i = 0; i < location.length; i++){
                     message = message + "Name: " + location[i].name + "\nAddress: " + location[i].address + "\nOpen: " + location[i].open + "\n";
                   }
@@ -69,12 +75,22 @@ app.set('views', `${__dirname}/views/`);
               });
 
                 res.send(`
+=======
+                    console.log(location);
+                    message = message + "Name: " + location[0].name + "\nAddress: " + location[0].address + "\nOpen: " + location[0].open + "\n";
+                    res.send(`
+>>>>>>> 7e8e4d46ad8f65cd65fca1438df24d6623485d5a
                     <Response>
                         <Message>
                             Hello ${msgFrom}. ${message}
                         </Message>
                     </Response>
                 `);
+                }
+              });
+
+                
+
             }
         } else if(numOfMedia > 1) {                                     //too many images
             res.send(`
@@ -85,8 +101,13 @@ app.set('views', `${__dirname}/views/`);
                 </Response>
             `);
         } else if(numOfMedia == 1) {                                    //one image send
+<<<<<<< HEAD
             //var image = req.body.MediaUrl0;
             var image = "https://samples.clarifai.com/demo-006.jpg";                             //get image url
+=======
+            var image = req.body.MediaUrl0;                                 //get image url
+            var finish = false;
+>>>>>>> 7e8e4d46ad8f65cd65fca1438df24d6623485d5a
 
             appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
               function(response) {
@@ -94,15 +115,18 @@ app.set('views', `${__dirname}/views/`);
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
 
+<<<<<<< HEAD
                 console.log(tags);
+=======
+>>>>>>> 7e8e4d46ad8f65cd65fca1438df24d6623485d5a
                 //check if organic
                 for ( i = 0 ; i < tags.length; i++) {
                     Organic.count({ category_tags: tags[i]}, (err, count) => {
-                        if (!count == 0){
+                        if (count == 1){
                             res.send(`
                                 <Response>
                                     <Message>
-                                        It's Organic! Hello ${msgFrom}. Image tags: ${tags}
+                                        It's Organic! 🤗 Compost it up!
                                     </Message>
                                 </Response>
                             `);
@@ -113,7 +137,7 @@ app.set('views', `${__dirname}/views/`);
               function(err) {
                   console.error(err);
               }
-            );
+            )
         }
     });
 

@@ -51,9 +51,6 @@ a:focus, a:hover {
 section {
   padding: 100px 0; }
 
-
-
-
 body {
   overflow-x: hidden;
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif; sans-serif;
@@ -128,7 +125,7 @@ body {
     text-transform: uppercase; }
   #mainNav .navbar-brand {
     color: #fed136;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, cursive; }
+    font-family: Helvetica, Arial, cursive; }
     #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
       color: #fec503; }
   #mainNav .navbar-nav .nav-item .nav-link {
@@ -172,7 +169,7 @@ header.masthead2 {
  min-height: auto;
  text-align: center;
  color: white;
- background-image: url("public/img/header.jpg");
+ background-image: url("./public/img/pink-cake.jpg");
  background-position: center;
  -webkit-background-size: cover;
  -moz-background-size: cover;
@@ -222,6 +219,7 @@ header.masthead2 {
 header.masthead {
   text-align: center;
   color: white;
+
   background-image: url("../img/header-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -542,8 +540,8 @@ header.masthead {
     margin-top: 0; }
 
 section#contact {
-  background-color: #222222;
-  background-image: url("../img/map-image.png");
+  background-color: #white;
+  background-image: url("../img/phone.jpg");
   background-repeat: no-repeat;
   background-position: center; }
   section#contact .section-heading {
