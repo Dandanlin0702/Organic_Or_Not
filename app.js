@@ -5,7 +5,6 @@ const express    = require("express"),
     http = require('http'),
     MessagingResponse = require('twilio').twiml.MessagingResponse,
     twilio = require('twilio'),
-    NotOrganic = require("./models/not_organic_do"),
     Clarifai   = require('clarifai'),
     seedDB     = require("./seeds");
 
@@ -94,6 +93,14 @@ app.set('views', `${__dirname}/views/`);
                   console.error(err);
               }
             );
+
+            res.send(`
+                <Response>
+                    <Message>
+                        Hello ${msgFrom}. You sent this image: ${image}
+                    </Message>
+                </Response>
+            `);
         }
     });
 

@@ -1,25 +1,28 @@
 var mongoose = require("mongoose");
-var NotOrganic = require("./models/not_organic_do");
+var Organic = require("./models/organic_do");
 
  function seedDB() {
-//   NotOrganic.create({category_tags: "fish"});
-//   NotOrganic.create({category_tags: "meat"});
-//   NotOrganic.create({category_tags: "cheese"});
-//   NotOrganic.create({category_tags: "milk"});
-//   NotOrganic.create({category_tags: "dairy product"});
-//   NotOrganic.create({category_tags: "oil"});
-//   NotOrganic.create({category_tags: "feces"});
-//   NotOrganic.create({category_tags: "poop"});
-//   NotOrganic.create({category_tags: "kitty litter"});
-//   NotOrganic.create({category_tags: "glossy paper"});
-//   NotOrganic.create({category_tags: "lumber"});
-//   NotOrganic.create({category_tags: "glass"});
-//   NotOrganic.create({category_tags: "metal"});
-//   NotOrganic.create({category_tags: "plastic"});
-//   NotOrganic.create({category_tags: "soil"});
-//   NotOrganic.create({category_tags: "soil"});
-//   NotOrganic.create({category_tags: "coal"});
-//   NotOrganic.create({category_tags: "ash"});
+  // Organic.create({category_tags: "fruit"});
+  // Organic.create({category_tags: "vegetable"});
+  // Organic.create({category_tags: "coffee grounds"});
+  // Organic.create({category_tags: "filters"});
+  // Organic.create({category_tags: "paper tea bags"});
+  // Organic.create({category_tags: "bread"});
+  // Organic.create({category_tags: "grain"});
+  // Organic.create({category_tags: "eggshell"});
+  // Organic.create({category_tags: "paper"});
+  // Organic.create({category_tags: "nutshell"});
+  // Organic.create({category_tags: "corncob"});
+  // Organic.create({category_tags: "paper towel"});
+  // Organic.create({category_tags: "napkin"});
+  // Organic.create({category_tags: "feather"});
+  // Organic.create({category_tags: "wood shaving"});
+  // Organic.create({category_tags: "stale beans"});
+  // Organic.create({category_tags: "flour"});
+  // Organic.create({category_tags: "spices"});
+  // Organic.create({category_tags: "dried flower"});
+  // Organic.create({category_tags: "houseplant"});
+  // Organic.create({category_tags: "potting soil"});
 }
 
 module.exports = seedDB;
