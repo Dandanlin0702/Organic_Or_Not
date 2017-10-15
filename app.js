@@ -6,7 +6,8 @@ const express    = require("express"),
     MessagingResponse = require('twilio').twiml.MessagingResponse,
     twilio = require('twilio'),
     Clarifai   = require('clarifai'),
-    seedDB     = require("./seeds");
+    seedDB     = require("./seeds"),
+    Locations = require("./models/locations.js");
 
 // Get rid of deprecated promise warning
 mongoose.Promise = global.Promise;
@@ -53,6 +54,16 @@ app.set('views', `${__dirname}/views/`);
                     </Response>
                 `);
             } else {
+              var message = "Scrap Dropoffs Near You!\n";
+              Locations.find({zip: msgBody}, (err, location) => {
+                if(err){
+                  console.log(err);
+                } else {
+                  for(var i = 0; i < location.length; i++){
+                    message = message + "Name: " + location[i].name + "\nAddress: " + location[i].address + "\nOpen: " + location[i].open + "\n";
+                  }
+                }
+              });
                 res.send(`
                     <Response>
                         <Message>
