@@ -67,19 +67,9 @@ app.set('views', `${__dirname}/views/`);
                 if(err){
                   console.log(err);
                 } else {
-<<<<<<< HEAD
-                  for(var i = 0; i < location.length; i++){
-                    message = message + "Name: " + location[i].name + "\nAddress: " + location[i].address + "\nOpen: " + location[i].open + "\n";
-                  }
-                }
-              });
-
-                res.send(`
-=======
                     console.log(location);
                     message = message + "Name: " + location[0].name + "\nAddress: " + location[0].address + "\nOpen: " + location[0].open + "\n";
                     res.send(`
->>>>>>> 7e8e4d46ad8f65cd65fca1438df24d6623485d5a
                     <Response>
                         <Message>
                             Hello ${msgFrom}. ${message}
@@ -89,7 +79,7 @@ app.set('views', `${__dirname}/views/`);
                 }
               });
 
-                
+
 
             }
         } else if(numOfMedia > 1) {                                     //too many images
@@ -101,13 +91,9 @@ app.set('views', `${__dirname}/views/`);
                 </Response>
             `);
         } else if(numOfMedia == 1) {                                    //one image send
-<<<<<<< HEAD
-            //var image = req.body.MediaUrl0;
-            var image = "https://samples.clarifai.com/demo-006.jpg";                             //get image url
-=======
+
             var image = req.body.MediaUrl0;                                 //get image url
             var finish = false;
->>>>>>> 7e8e4d46ad8f65cd65fca1438df24d6623485d5a
 
             appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
               function(response) {
@@ -115,10 +101,7 @@ app.set('views', `${__dirname}/views/`);
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
 
-<<<<<<< HEAD
-                console.log(tags);
-=======
->>>>>>> 7e8e4d46ad8f65cd65fca1438df24d6623485d5a
+
                 //check if organic
                 for ( i = 0 ; i < tags.length; i++) {
                     Organic.count({ category_tags: tags[i]}, (err, count) => {
