@@ -4,11 +4,11 @@ const Locations = require("../models/locations.js");
 
 const router = express.Router();
 
-router.get('/info', (req, res) => {
+router.get('/', (req, res) => {
   // res.json({
   //   msg: "Successful GET to '/' route"
   // });
-  res.render('info');
+  res.render('index');
 });
 
 router.get('/index', (req, res) => {
@@ -16,6 +16,13 @@ router.get('/index', (req, res) => {
   //   msg: "Successful GET to '/' route"
   // });
   res.render('index');
+});
+
+router.get('/info', (req, res) => {
+  // res.json({
+  //   msg: "Successful GET to '/' route"
+  // });
+  res.render('info');
 });
 
 router.get('/zipcode', (req, res) => {
