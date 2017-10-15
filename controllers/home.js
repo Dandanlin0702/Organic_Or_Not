@@ -28,7 +28,23 @@ router.get('/zipcode', (req, res) => {
 
 router.post('/zipcode', (req, res) => {
   const zip = req.body.zipcode;
-  console.log(zip);
+  //const zip_parse = zip.toString();
+
+  Locations.findOne({zip: req.body.zipcode }, (err, location) => {
+    if(err){
+      console.log(err);
+    } else {
+      console.log("Name: " + location.name + "\nAddress: " + location.address + "\nOpen: " + location.open);
+    }
+  });
+
+//   Locations.findOne({"zip": 'zip_parse'} , (err, location) => {
+//     if(err){
+//       console.log(err);
+//     } else {
+//       console.log(location.address);
+//     }
+// })
 });
 
 router.post('/', (req, res) => {
