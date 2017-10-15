@@ -54,7 +54,7 @@ app.set('views', `${__dirname}/views/`);
                     </Response>
                 `);
             } else {
-              var message = "Scrap Dropoffs Near You!\n";
+              var message = "Scrap Dropoffs Near You! \n";
               Locations.find({zip: msgBody}, (err, location) => {
                 if(err){
                   console.log(err);
