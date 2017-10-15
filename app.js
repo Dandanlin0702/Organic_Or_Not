@@ -1,4 +1,4 @@
-const express    = require("express"),
+  const express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),  //body-parser
     mongoose   = require("mongoose"),
@@ -7,11 +7,13 @@ const express    = require("express"),
     twilio = require('twilio'),
     Clarifai   = require('clarifai'),
     seedDB     = require("./seeds"),
-    Locations = require("./models/locations.js");
+    MongoClient = require('mongodb').MongoClient,
+    Organic = require("./models/organic_do.js");
 
 // Get rid of deprecated promise warning
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development", {useMongoClient: true});
+var url = "mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development";
+mongoose.connect(url, {useMongoClient: true});
 //mongoose.connect("mongodb://localhost/organic-or-not_development");
 
 app.use(bodyParser.json());
@@ -54,16 +56,6 @@ app.set('views', `${__dirname}/views/`);
                     </Response>
                 `);
             } else {
-              var message = "Scrap Dropoffs Near You!\n";
-              Locations.find({zip: msgBody}, (err, location) => {
-                if(err){
-                  console.log(err);
-                } else {
-                  for(var i = 0; i < location.length; i++){
-                    message = message + "Name: " + location[i].name + "\nAddress: " + location[i].address + "\nOpen: " + location[i].open + "\n";
-                  }
-                }
-              });
                 res.send(`
                     <Response>
                         <Message>
@@ -81,37 +73,33 @@ app.set('views', `${__dirname}/views/`);
                 </Response>
             `);
         } else if(numOfMedia == 1) {                                    //one image send
-            var image = req.body.MediaUrl0;
+            var image = req.body.MediaUrl0;                                 //get image url
 
             appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
               function(response) {
                 var tags = [];
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
-                console.log(tags);
-
-                res.send(`
-                    <Response>
-                        <Message>
-                            Hello ${msgFrom}. Image tags: ${tags}
-                        </Message>
-                    </Response>
-                `);
-
+                
+                //check if organic
+                for ( i = 0 ; i < tags.length; i++) {
+                    Organic.count({ category_tags: tags[i]}, (err, count) => {
+                        if (!count == 0){
+                            res.send(`
+                                <Response>
+                                    <Message>
+                                        It's Organic! Hello ${msgFrom}. Image tags: ${tags}
+                                    </Message>
+                                </Response>
+                            `);
+                        }
+                    });
+                }
               },
-
               function(err) {
                   console.error(err);
               }
             );
-
-            res.send(`
-                <Response>
-                    <Message>
-                        Hello ${msgFrom}. You sent this image: ${image}
-                    </Message>
-                </Response>
-            `);
         }
     });
 
