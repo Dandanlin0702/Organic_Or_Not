@@ -45,7 +45,7 @@ app.set('views', `${__dirname}/views/`);
         //console.log(JSON.stringify(req.body));
         const msgFrom = req.body.From;
         const msgBody = req.body.Body;
-        const numOfMedia = req.body.NumMedia;
+        const numOfMedia = 1;
 
         if(numOfMedia == 0) {                                           //no images
             if(isNaN(msgBody)){                                         //check if it is a zipcode
@@ -67,7 +67,7 @@ app.set('views', `${__dirname}/views/`);
                   }
                 }
               });
-              
+
                 res.send(`
                     <Response>
                         <Message>
@@ -85,14 +85,16 @@ app.set('views', `${__dirname}/views/`);
                 </Response>
             `);
         } else if(numOfMedia == 1) {                                    //one image send
-            var image = req.body.MediaUrl0;                                 //get image url
+            //var image = req.body.MediaUrl0;
+            var image = "https://samples.clarifai.com/demo-006.jpg";                             //get image url
 
             appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
               function(response) {
                 var tags = [];
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
-                
+
+                console.log(tags);
                 //check if organic
                 for ( i = 0 ; i < tags.length; i++) {
                     Organic.count({ category_tags: tags[i]}, (err, count) => {
