@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //seedDB();
 
+
 app.use(express.static('./public'));
 
 // Clarifai API
@@ -99,6 +100,7 @@ app.set('views', `${__dirname}/views/`);
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
 
+                //check if organic
                 for ( i = 0 ; i < tags.length; i++) {
                     Organic.count({ category_tags: tags[i]}, (err, count) => {
                         if (count == 1){
