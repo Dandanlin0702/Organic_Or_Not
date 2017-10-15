@@ -9,7 +9,9 @@
     seedDB     = require("./seeds"),
     MongoClient = require('mongodb').MongoClient,
     Organic = require("./models/organic_do.js"),
-    Locations = require("./models/locations.js");
+    Locations = require("./models/locations.js"),
+    Promise = require('promise'),
+    Bluebird = require('bluebird');
 
 // Get rid of deprecated promise warning
 mongoose.Promise = global.Promise;
@@ -47,34 +49,37 @@ app.set('views', `${__dirname}/views/`);
         const msgBody = req.body.Body;
         const numOfMedia = req.body.NumMedia;
 
+        var message = "";
+
         if(numOfMedia == 0) {                                           //no images
             if(isNaN(msgBody)){                                         //check if it is a zipcode
                 res.send(`
                     <Response>
                         <Message>
-                            Hello ${msgFrom}. You have to send an image or zipcode. :D Try again!
+                            Hello! You have to send an image or zipcode. :D Try again!
                         </Message>
                     </Response>
                 `);
             } else {
-              var message = "Here are the scrap drop off locations near you! \n";
+                var message = "The closest scrap drop off location near you is \n\n";
               Locations.find({zip: msgBody}, (err, location) => {
                 if(err){
                   console.log(err);
                 } else {
-                  for(var i = 0; i < location.length; i++){
-                    message = message + "Name: " + location[i].name + "\nAddress: " + location[i].address + "\nOpen: " + location[i].open + "\n";
-                  }
-                }
-              });
-              
-                res.send(`
+                    console.log(location);
+                    message = message + "Name: " + location[0].name + "\nAddress: " + location[0].address + "\nOpen: " + location[0].open + "\n";
+                    res.send(`
                     <Response>
                         <Message>
                             Hello ${msgFrom}. ${message}
                         </Message>
                     </Response>
                 `);
+                }
+              });
+
+                
+
             }
         } else if(numOfMedia > 1) {                                     //too many images
             res.send(`
@@ -86,21 +91,21 @@ app.set('views', `${__dirname}/views/`);
             `);
         } else if(numOfMedia == 1) {                                    //one image send
             var image = req.body.MediaUrl0;                                 //get image url
+            var finish = false;
 
             appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
               function(response) {
                 var tags = [];
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
-                
-                //check if organic
+
                 for ( i = 0 ; i < tags.length; i++) {
                     Organic.count({ category_tags: tags[i]}, (err, count) => {
-                        if (!count == 0){
+                        if (count == 1){
                             res.send(`
                                 <Response>
                                     <Message>
-                                        It's Organic! Hello ${msgFrom}. Image tags: ${tags}
+                                        It's Organic! 🤗 Compost it up!
                                     </Message>
                                 </Response>
                             `);
@@ -111,7 +116,7 @@ app.set('views', `${__dirname}/views/`);
               function(err) {
                   console.error(err);
               }
-            );
+            )
         }
     });
 
