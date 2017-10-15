@@ -11,7 +11,7 @@ router.get('/info', (req, res) => {
   res.render('info');
 });
 
-router.get('/', (req, res) => {
+router.get('/index', (req, res) => {
   // res.json({
   //   msg: "Successful GET to '/' route"
   // });
