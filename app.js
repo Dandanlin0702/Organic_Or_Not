@@ -8,7 +8,8 @@
     Clarifai   = require('clarifai'),
     seedDB     = require("./seeds"),
     MongoClient = require('mongodb').MongoClient,
-    Organic = require("./models/organic_do.js");
+    Organic = require("./models/organic_do.js"),
+    Locations = require("./models/locations.js");
 
 // Get rid of deprecated promise warning
 mongoose.Promise = global.Promise;
@@ -56,10 +57,21 @@ app.set('views', `${__dirname}/views/`);
                     </Response>
                 `);
             } else {
+              var message = "Here are the scrap drop off locations near you! \n";
+              Locations.find({zip: msgBody}, (err, location) => {
+                if(err){
+                  console.log(err);
+                } else {
+                  for(var i = 0; i < location.length; i++){
+                    message = message + "Name: " + location[i].name + "\nAddress: " + location[i].address + "\nOpen: " + location[i].open + "\n";
+                  }
+                }
+              });
+              
                 res.send(`
                     <Response>
                         <Message>
-                            Hello ${msgFrom}. Zipcode!
+                            Hello ${msgFrom}. ${message}
                         </Message>
                     </Response>
                 `);
