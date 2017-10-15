@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //seedDB();
 
+
 app.use(express.static('./public'));
 
 // Clarifai API
@@ -47,7 +48,7 @@ app.set('views', `${__dirname}/views/`);
         //console.log(JSON.stringify(req.body));
         const msgFrom = req.body.From;
         const msgBody = req.body.Body;
-        const numOfMedia = req.body.NumMedia;
+        const numOfMedia = 1;
 
         var message = "";
 
@@ -78,7 +79,7 @@ app.set('views', `${__dirname}/views/`);
                 }
               });
 
-                
+
 
             }
         } else if(numOfMedia > 1) {                                     //too many images
@@ -90,6 +91,7 @@ app.set('views', `${__dirname}/views/`);
                 </Response>
             `);
         } else if(numOfMedia == 1) {                                    //one image send
+
             var image = req.body.MediaUrl0;                                 //get image url
             var finish = false;
 
@@ -99,6 +101,8 @@ app.set('views', `${__dirname}/views/`);
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
 
+
+                //check if organic
                 for ( i = 0 ; i < tags.length; i++) {
                     Organic.count({ category_tags: tags[i]}, (err, count) => {
                         if (count == 1){
@@ -120,4 +124,4 @@ app.set('views', `${__dirname}/views/`);
         }
     });
 
-    app.listen(5000);
+    app.listen(process.env.PORT || 5000);
