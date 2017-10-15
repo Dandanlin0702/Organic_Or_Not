@@ -13,7 +13,7 @@ mongoose.connect("mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-seedDB();
+//seedDB();
 
 const exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({layoutsDir: './views/layouts', defaultLayout: 'main'}));
