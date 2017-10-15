@@ -2,7 +2,7 @@ const express  = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),  //body-parser
     mongoose   = require("mongoose"),
-    NotOrganic    = require("./models/not_organic_do"),
+    NotOrganic = require("./models/not_organic_do"),
     seedDB     = require("./seeds");
 
 // Get rid of deprecated promise warning
