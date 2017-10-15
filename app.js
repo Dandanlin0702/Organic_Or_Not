@@ -48,7 +48,7 @@ app.set('views', `${__dirname}/views/`);
         //console.log(JSON.stringify(req.body));
         const msgFrom = req.body.From;
         const msgBody = req.body.Body;
-        const numOfMedia = 1;
+        const numOfMedia = req.body.NumMedia;
 
         var message = "";
 
@@ -110,7 +110,7 @@ app.set('views', `${__dirname}/views/`);
                                 <Response>
                                     <Message>
                                         It's Organic! 🤗 Compost it up! Give me your zipcode if you want to know your closest scrap drop off location.
-                                    </Message> 
+                                    </Message>
                                 </Response>
                             `);
                         }
