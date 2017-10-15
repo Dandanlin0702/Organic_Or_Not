@@ -1,15 +1,15 @@
-const express    = require("express"),
-  app        = express(),
-  bodyParser = require("body-parser"),  //body-parser
-  mongoose   = require("mongoose"),
-  http = require('http'),
-  MessagingResponse = require('twilio').twiml.MessagingResponse,
-  twilio = require('twilio'),
-  Clarifai   = require('clarifai'),
-  seedDB     = require("./seeds"),
-  MongoClient = require('mongodb').MongoClient,
-  Organic = require("./models/organic_do.js"),
-  Locations = require("./models/locations.js");
+  const express    = require("express"),
+    app        = express(),
+    bodyParser = require("body-parser"),  //body-parser
+    mongoose   = require("mongoose"),
+    http = require('http'),
+    MessagingResponse = require('twilio').twiml.MessagingResponse,
+    twilio = require('twilio'),
+    Clarifai   = require('clarifai'),
+    seedDB     = require("./seeds"),
+    MongoClient = require('mongodb').MongoClient,
+    Organic = require("./models/organic_do.js"),
+    Locations = require("./models/locations.js");
 
 // Get rid of deprecated promise warning
 mongoose.Promise = global.Promise;
@@ -73,44 +73,35 @@ app.set('views', `${__dirname}/views/`);
                     </Message>
                 </Response>
             `);
-          }
-      } else if(numOfMedia > 1) {                                     //too many images
-          res.send(`
-              <Response>
-                  <Message>
-                      NO! You sent too many images!! Try again! :O
-                  </Message>
-              </Response>
-          `);
-      } else if(numOfMedia == 1) {                                    //one image send
-          var image = req.body.MediaUrl0;                                 //get image url
+        } else if(numOfMedia == 1) {                                    //one image send
+            var image = req.body.MediaUrl0;                                 //get image url
 
-          appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
-            function(response) {
-              var tags = [];
-              for (i = 0; i < 10; i++)
-                tags.push(response.outputs[0].data.concepts[i].name);
+            appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
+              function(response) {
+                var tags = [];
+                for (i = 0; i < 10; i++)
+                  tags.push(response.outputs[0].data.concepts[i].name);
 
-              //check if organic
-              for ( i = 0 ; i < tags.length; i++) {
-                  Organic.count({ category_tags: tags[i]}, (err, count) => {
-                      if (!count == 0){
-                          res.send(`
-                              <Response>
-                                  <Message>
-                                      It's Organic! Hello ${msgFrom}. Image tags: ${tags}
-                                  </Message>
-                              </Response>
-                          `);
-                      }
-                  });
+                //check if organic
+                for ( i = 0 ; i < tags.length; i++) {
+                    Organic.count({ category_tags: tags[i]}, (err, count) => {
+                        if (!count == 0){
+                            res.send(`
+                                <Response>
+                                    <Message>
+                                        It's Organic! Hello ${msgFrom}. Image tags: ${tags}
+                                    </Message>
+                                </Response>
+                            `);
+                        }
+                    });
+                }
+              },
+              function(err) {
+                  console.error(err);
               }
-            },
-            function(err) {
-                console.error(err);
-            }
-          );
-      }
-  });
+            );
+        }
+    });
 
   app.listen(5000);
