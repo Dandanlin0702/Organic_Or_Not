@@ -24,15 +24,16 @@ router.get('/zipcode', (req, res) => {
 
 router.post('/zipcode', (req, res) => {
   const zip = req.body.zipcode;
+  var message = "Scrap Dropoffs Near You!\n\n";
   Locations.find({zip: zip}, (err, location) => {
     if(err){
       console.log(err);
     } else {
-      console.log("Scrap Dropoffs Near You!\n");
       for(var i = 0; i < location.length; i++){
-        console.log("Name: " + location[i].name + "\nAddress: " + location[i].address + "\nOpen: " + location[i].open + "\n");
+        message = message + "Name: " + location[i].name + "\nAddress: " + location[i].address + "\nOpen: " + location[i].open + "\n\n";
       }
     }
+
   });
 });
 
