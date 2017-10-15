@@ -72,7 +72,7 @@ app.set('views', `${__dirname}/views/`);
             `);
         } else if(numOfMedia == 1) {                                    //one image send
             var image = req.body.MediaUrl0;
-          
+
             appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
               function(response) {
                 var tags = [];
@@ -86,14 +86,14 @@ app.set('views', `${__dirname}/views/`);
                             Hello ${msgFrom}. Image tags: ${tags}
                         </Message>
                     </Response>
-                `); 
+                `);
 
               },
-              
+
               function(err) {
                   console.error(err);
               }
-            );           
+            );
         }
     });
 
