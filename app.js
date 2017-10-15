@@ -1,4 +1,4 @@
-const express    = require("express"),
+  const express    = require("express"),
     app        = express(),
     bodyParser = require("body-parser"),  //body-parser
     mongoose   = require("mongoose"),
@@ -6,17 +6,24 @@ const express    = require("express"),
     MessagingResponse = require('twilio').twiml.MessagingResponse,
     twilio = require('twilio'),
     Clarifai   = require('clarifai'),
-    seedDB     = require("./seeds");
+    seedDB     = require("./seeds"),
+    MongoClient = require('mongodb').MongoClient,
+    Organic = require("./models/organic_do.js"),
+    Locations = require("./models/locations.js"),
+    Promise = require('promise'),
+    Bluebird = require('bluebird');
 
 // Get rid of deprecated promise warning
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development", {useMongoClient: true});
+var url = "mongodb://hunter:hunter@ds121225.mlab.com:21225/organic-or-not_development";
+mongoose.connect(url, {useMongoClient: true});
 //mongoose.connect("mongodb://localhost/organic-or-not_development");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //seedDB();
+
 
 app.use(express.static('./public'));
 
@@ -43,23 +50,37 @@ app.set('views', `${__dirname}/views/`);
         const msgBody = req.body.Body;
         const numOfMedia = req.body.NumMedia;
 
+        var message = "";
+
         if(numOfMedia == 0) {                                           //no images
             if(isNaN(msgBody)){                                         //check if it is a zipcode
                 res.send(`
                     <Response>
                         <Message>
-                            Hello ${msgFrom}. You have to send an image or zipcode. :D Try again!
+                            Hello! You have to send an image or zipcode. :D Try again!
                         </Message>
                     </Response>
                 `);
             } else {
-                res.send(`
+                var message = "The closest scrap drop off location near you is \n\n";
+              Locations.find({zip: msgBody}, (err, location) => {
+                if(err){
+                  console.log(err);
+                } else {
+                    console.log(location);
+                    message = message + "Name: " + location[0].name + "\nAddress: " + location[0].address + "\nOpen: " + location[0].open + "\n";
+                    res.send(`
                     <Response>
                         <Message>
-                            Hello ${msgFrom}. Zipcode!
+                            Hello ${msgFrom}. ${message}
                         </Message>
                     </Response>
                 `);
+                }
+              });
+
+                
+
             }
         } else if(numOfMedia > 1) {                                     //too many images
             res.send(`
@@ -70,37 +91,34 @@ app.set('views', `${__dirname}/views/`);
                 </Response>
             `);
         } else if(numOfMedia == 1) {                                    //one image send
-            var image = req.body.MediaUrl0;
+            var image = req.body.MediaUrl0;                                 //get image url
+            var finish = false;
 
             appClarifai.models.predict(Clarifai.GENERAL_MODEL, image).then(
               function(response) {
                 var tags = [];
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
-                console.log(tags);
 
-                res.send(`
-                    <Response>
-                        <Message>
-                            Hello ${msgFrom}. Image tags: ${tags}
-                        </Message>
-                    </Response>
-                `);
-
+                //check if organic
+                for ( i = 0 ; i < tags.length; i++) {
+                    Organic.count({ category_tags: tags[i]}, (err, count) => {
+                        if (count == 1){
+                            res.send(`
+                                <Response>
+                                    <Message>
+                                        It's Organic! 🤗 Compost it up!
+                                    </Message>
+                                </Response>
+                            `);
+                        }
+                    });
+                }
               },
-
               function(err) {
                   console.error(err);
               }
-            );
-
-            res.send(`
-                <Response>
-                    <Message>
-                        Hello ${msgFrom}. You sent this image: ${image}
-                    </Message>
-                </Response>
-            `);
+            )
         }
     });
 

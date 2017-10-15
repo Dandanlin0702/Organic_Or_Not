@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/heidiwu/compost-or-not#readme",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "clarifai": "^2.4.0",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
+    "mongodb": "^2.2.33",
     "mongoose": "^4.12.2",
     "nodemon": "^1.12.1",
     "twilio": "^3.8.1"
