@@ -78,7 +78,17 @@ app.set('views', `${__dirname}/views/`);
                 for (i = 0; i < 10; i++)
                   tags.push(response.outputs[0].data.concepts[i].name);
                 console.log(tags);
+
+                res.send(`
+                    <Response>
+                        <Message>
+                            Hello ${msgFrom}. Image tags: ${tags}
+                        </Message>
+                    </Response>
+                `);
+
               },
+
               function(err) {
                   console.error(err);
               }
