@@ -222,6 +222,7 @@ header.masthead2 {
 header.masthead {
   text-align: center;
   color: white;
+
   background-image: url("../img/header-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -542,8 +543,8 @@ header.masthead {
     margin-top: 0; }
 
 section#contact {
-  background-color: #222222;
-  background-image: url("../img/map-image.png");
+  background-color: #white;
+  background-image: url("../img/phone.jpg");
   background-repeat: no-repeat;
   background-position: center; }
   section#contact .section-heading {
