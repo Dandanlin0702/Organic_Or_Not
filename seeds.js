@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var NotOrganic = require("./models/not_organic_do");
 
-// function seedDB() {
+ function seedDB() {
 //   NotOrganic.create({category_tags: "fish"});
 //   NotOrganic.create({category_tags: "meat"});
 //   NotOrganic.create({category_tags: "cheese"});
@@ -20,6 +20,6 @@ var NotOrganic = require("./models/not_organic_do");
 //   NotOrganic.create({category_tags: "soil"});
 //   NotOrganic.create({category_tags: "coal"});
 //   NotOrganic.create({category_tags: "ash"});
-// }
+}
 
 module.exports = seedDB;
