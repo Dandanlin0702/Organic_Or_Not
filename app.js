@@ -29,7 +29,7 @@ app.use(express.static('./public'));
 
 // Clarifai API
 const appClarifai = new Clarifai.App({
- apiKey: 'e2ff146e44ba4f1da89a037d3f251b27'
+ apiKey: process.env.CLARIFAI_KEY
 });
 
 const exphbs = require('express-handlebars');
@@ -68,7 +68,7 @@ app.set('views', `${__dirname}/views/`);
                   console.log(err);
                 } else {
                     console.log(location);
-                    message = message + "Name: " + location[0].name + "\nAddress: " + location[0].address + "\nOpen: " + location[0].open + "\n";
+                    message = message + "Name: " + location.name + "\nAddress: " + location.address + "\nOpen: " + location.open + "\n";
                     res.send(`
                     <Response>
                         <Message>
@@ -78,8 +78,6 @@ app.set('views', `${__dirname}/views/`);
                     `);
                 }
               });
-
-
 
             }
         } else if(numOfMedia > 1) {                                     //too many images
