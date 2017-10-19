@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   // res.json({
   //   msg: "Successful GET to '/' route"
   // });
-  res.render('index');
+  res.render('info');
 });
 
 router.get('/index', (req, res) => {
